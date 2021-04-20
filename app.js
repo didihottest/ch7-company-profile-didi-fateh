@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 app.use(routers)
-
+// use connection module to connect to database from route
 app.listen(5000, ()=>{
   console.log("Server is running at port 5000")
 })
