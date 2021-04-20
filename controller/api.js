@@ -169,3 +169,54 @@ exports.editEmployee = async (req, res, next) => {
     if (error) res.json(error.message)
   }
 }
+
+// all delete api controller
+// about entry collection delete
+
+exports.deleteAbout = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updateAbout = await About.findOneAndDelete(
+      { _id: id }
+    );
+    res.json({
+      message: "successfully deleted",
+      deleted: id
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+}
+
+// edit entry to portfolios collection
+exports.deletePortfolio = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updatePortfolio = await Portfolio.findOneAndDelete(
+      { _id: id }
+    )
+    res.json({
+      message: "successfully deleted",
+      deleted: id
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+
+}
+
+// edit entry to employees collections
+exports.deleteEmployee = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updateEmployee = await Employee.findOneAndDelete(
+      { _id: id }
+    )
+    res.json({
+      message: "successfully deleted",
+      deleted: id
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+}
