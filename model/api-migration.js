@@ -115,3 +115,5 @@ Employee.insertMany(Employee_Data, (error, docs) => {
     console.log(docs)
   }
 })
+
+mongoose.connection.close()
