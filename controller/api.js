@@ -2,6 +2,7 @@
 const express = require('express');
 const app = express();
 const {About, Portfolio, Employee} = require('./../model/api')
+const multer = require('multer');
 // Get request raw json from postman / api
 app.use(express.json());
 // Get request form form-urlencoded form postman / api
