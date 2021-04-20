@@ -113,7 +113,7 @@ Employee.insertMany(Employee_Data, (error, docs) => {
     console.log(error.message)
   } else {
     console.log(docs)
+    mongoose.connection.close()
   }
 })
 
-mongoose.connection.close()
