@@ -98,7 +98,8 @@ exports.addEmployee = (req, res, next) => {
   }
 }
 
-
+// all api for edit entry on specific collection
+// edit entry to about collection
 exports.editAbout = async (req, res, next) => {
   const id = req.params.id;
   const { year, title, description, imageURL } = req.body;
@@ -121,7 +122,7 @@ exports.editAbout = async (req, res, next) => {
   }
 }
 
-// add new entry to portfolios collection
+// edit entry to portfolios collection
 exports.editPortfolio = async (req, res, next) => {
   const id = req.params.id;
   const { title, description, imageURL } = req.body;
@@ -144,7 +145,7 @@ exports.editPortfolio = async (req, res, next) => {
 
 }
 
-// add new entry to employees collections
+// edit entry to employees collections
 exports.editEmployee = async (req, res, next) => {
   const id = req.params.id;
   const { fullname, position, imageURL, twitterURL, facebookURL, linkedinURL } = req.body;
