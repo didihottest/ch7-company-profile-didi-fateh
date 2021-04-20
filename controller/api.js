@@ -98,7 +98,8 @@ exports.addEmployee = (req, res, next) => {
   }
 }
 
-
+// all api for edit entry on specific collection
+// edit entry to about collection
 exports.editAbout = async (req, res, next) => {
   const id = req.params.id;
   const { year, title, description, imageURL } = req.body;
@@ -121,7 +122,7 @@ exports.editAbout = async (req, res, next) => {
   }
 }
 
-// add new entry to portfolios collection
+// edit entry to portfolios collection
 exports.editPortfolio = async (req, res, next) => {
   const id = req.params.id;
   const { title, description, imageURL } = req.body;
@@ -144,7 +145,7 @@ exports.editPortfolio = async (req, res, next) => {
 
 }
 
-// add new entry to employees collections
+// edit entry to employees collections
 exports.editEmployee = async (req, res, next) => {
   const id = req.params.id;
   const { fullname, position, imageURL, twitterURL, facebookURL, linkedinURL } = req.body;
@@ -163,6 +164,57 @@ exports.editEmployee = async (req, res, next) => {
     )
     res.json({
       message: "successfully updated"
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+}
+
+// all delete api controller
+// about entry collection delete
+
+exports.deleteAbout = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updateAbout = await About.findOneAndDelete(
+      { _id: id }
+    );
+    res.json({
+      message: "successfully deleted",
+      deleted: id
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+}
+
+// edit entry to portfolios collection
+exports.deletePortfolio = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updatePortfolio = await Portfolio.findOneAndDelete(
+      { _id: id }
+    )
+    res.json({
+      message: "successfully deleted",
+      deleted: id
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+
+}
+
+// edit entry to employees collections
+exports.deleteEmployee = async (req, res, next) => {
+  const id = req.params.id;
+  try {
+    const updateEmployee = await Employee.findOneAndDelete(
+      { _id: id }
+    )
+    res.json({
+      message: "successfully deleted",
+      deleted: id
     })
   } catch (error) {
     if (error) res.json(error.message)
