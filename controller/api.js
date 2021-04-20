@@ -33,54 +33,67 @@ exports.getEmployees =  (req, res, next) => {
 // add new entry to about collection
 exports.addAbout = (req, res, next) => {
   const {year, title, description, imageURL} = req.body;
-  const newAbout = new About({
-    year: year,
-    title: title,
-    description: description,
-    imageURL: imageURL
-  })
-  newAbout.save((err) => {
-    if (err) {
-      console.error(err)
-    } else {
-      res.json(newAbout)
-    }
-  })
+  try {
+    const newAbout = new About({
+      year: year,
+      title: title,
+      description: description,
+      imageURL: imageURL
+    })
+    newAbout.save((err) => {
+      if (err) {
+        res.json(err.message)
+      } else {
+        res.json(newAbout)
+      }
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
 }
 
 // add new entry to portfolios collection
 exports.addPortfolio = (req, res, next) => {
   const {title, description, imageURL} = req.body;
-  const newPortfolio = new Portfolio({
-    title: title,
-    description: description,
-    imageURL: imageURL
-  })
-  newPortfolio.save((err) => {
-    if (err) {
-      console.error(err)
-    } else {
-      res.json(newPortfolio)
-    }
-  })
+  try {
+    const newPortfolio = new Portfolio({
+      title: title,
+      description: description,
+      imageURL: imageURL
+    })
+    newPortfolio.save((err) => {
+      if (err) {
+        res.json(err.message)
+      } else {
+        res.json(newPortfolio)
+      }
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+  
 }
 
 // add new entry to employees collections
 exports.addEmployee = (req, res, next) => {
   const {fullname, position, imageURL, twitterURL, facebookURL, linkedinURL} = req.body;
-  const newEmployee = new Employee({
-    fullname: fullname,
-    position: position,
-    imageURL: imageURL,
-    twitterURL: twitterURL,
-    facebookURL: facebookURL,
-    linkedinURL: linkedinURL,
-  })
-  newEmployee.save((err) => {
-    if (err) {
-      console.error(err)
-    } else {
-      res.json(newEmployee)
-    }
-  })
+  try {
+    const newEmployee = new Employee({
+      fullname: fullname,
+      position: position,
+      imageURL: imageURL,
+      twitterURL: twitterURL,
+      facebookURL: facebookURL,
+      linkedinURL: linkedinURL,
+    })
+    newEmployee.save((err) => {
+      if (err) {
+        res.json(err.message)
+      } else {
+        res.json(newEmployee)
+      }
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
 }
