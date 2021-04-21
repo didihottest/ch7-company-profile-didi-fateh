@@ -76,4 +76,27 @@ const AboutSchema = new Schema({
 // create model from schema
 const About = mongoose.model('about', AboutSchema);
 
-module.exports = {About, Portfolio, Employee}
+// create new portfolio schema
+const ContactSchema = new Schema({
+  name:{
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  phone: {
+    type: String,
+    required: true
+  },
+  message: {
+    type: String,
+    required: true
+  }
+})
+
+// create model from schema
+const Contact = mongoose.model('contact', ContactSchema);
+
+module.exports = {About, Portfolio, Employee, Contact}

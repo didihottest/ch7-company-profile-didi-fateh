@@ -1,7 +1,7 @@
 // use express module
 const express = require('express');
 const app = express();
-const { About, Portfolio, Employee } = require('./../model/api')
+const { About, Portfolio, Employee, Contact} = require('./../model/api')
 // Get request raw json from postman / api
 app.use(express.json());
 // Get request form form-urlencoded form postman / api
@@ -30,6 +30,29 @@ exports.getEmployees = (req, res, next) => {
 }
 
 //all endpoint for add new data to collections
+// add new contact message entry
+exports.addContact = (req, res, next) => {
+  const { name, email, phone, message } = req.body;
+  try {
+    const newContact = new Contact({
+      name: name,
+      email: email,
+      phone: phone,
+      message: message 
+    })
+    newContact.save((err) => {
+      if (err) {
+        res.json(err.message)
+      } else {
+        res.json(newContact)
+      }
+    })
+  } catch (error) {
+    if (error) res.json(error.message)
+  }
+}
+
+
 // add new entry to about collection
 exports.addAbout = (req, res, next) => {
   const { year, title, description, imageURL } = req.body;
@@ -142,7 +165,6 @@ exports.editPortfolio = async (req, res, next) => {
   } catch (error) {
     if (error) res.json(error.message)
   }
-
 }
 
 // edit entry to employees collections

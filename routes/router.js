@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 const {getIndex} = require('./../controller/index');
 const {
   getAbouts, getPortfolios, getEmployees, 
-  addAbout, addPortfolio, addEmployee,
+  addAbout, addPortfolio, addEmployee, addContact,
   editAbout, editPortfolio, editEmployee,
   deleteAbout, deletePortfolio, deleteEmployee} = require('./../controller/api');
 
@@ -22,6 +22,7 @@ router.get('/api/employees', getEmployees);
 router.post('/api/addabout', multer().none(), addAbout);
 router.post('/api/addportfolio', multer().none(), addPortfolio);
 router.post('/api/addemployee', multer().none(), addEmployee);
+router.post('/api/addcontact', multer().none(), addContact);
 // api post edit data
 router.post('/api/editabout/:id', multer().none(), editAbout);
 router.post('/api/editportfolio/:id', multer().none(), editPortfolio);
