@@ -44,7 +44,7 @@ exports.addContact = (req, res, next) => {
       if (err) {
         res.json(err.message)
       } else {
-        res.json(newContact)
+        res.redirect('/')
       }
     })
   } catch (error) {
@@ -67,7 +67,7 @@ exports.addAbout = (req, res, next) => {
       if (err) {
         res.json(err.message)
       } else {
-        res.json(newAbout)
+        res.redirect('/')
       }
     })
   } catch (error) {
@@ -88,7 +88,8 @@ exports.addPortfolio = (req, res, next) => {
       if (err) {
         res.json(err.message)
       } else {
-        res.json(newPortfolio)
+        res.redirect('/')
+
       }
     })
   } catch (error) {
@@ -113,7 +114,8 @@ exports.addEmployee = (req, res, next) => {
       if (err) {
         res.json(err.message)
       } else {
-        res.json(newEmployee)
+        res.redirect('/')
+
       }
     })
   } catch (error) {
@@ -137,9 +139,8 @@ exports.editAbout = async (req, res, next) => {
       },
       { runValidators: true }
     );
-    res.json({
-      message: "successfully updated"
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
@@ -159,9 +160,8 @@ exports.editPortfolio = async (req, res, next) => {
       },
       { runValidators: true }
     )
-    res.json({
-      message: "successfully updated"
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
@@ -184,9 +184,8 @@ exports.editEmployee = async (req, res, next) => {
       },
       { runValidators: true }
     )
-    res.json({
-      message: "successfully updated"
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
@@ -201,10 +200,8 @@ exports.deleteAbout = async (req, res, next) => {
     const updateAbout = await About.findOneAndDelete(
       { _id: id }
     );
-    res.json({
-      message: "successfully deleted",
-      deleted: id
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
@@ -217,10 +214,8 @@ exports.deletePortfolio = async (req, res, next) => {
     const updatePortfolio = await Portfolio.findOneAndDelete(
       { _id: id }
     )
-    res.json({
-      message: "successfully deleted",
-      deleted: id
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
@@ -234,10 +229,8 @@ exports.deleteEmployee = async (req, res, next) => {
     const updateEmployee = await Employee.findOneAndDelete(
       { _id: id }
     )
-    res.json({
-      message: "successfully deleted",
-      deleted: id
-    })
+    res.redirect('/')
+
   } catch (error) {
     if (error) res.json(error.message)
   }
