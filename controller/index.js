@@ -24,16 +24,29 @@ exports.getAddAbout = (req, res, next) => {
   })
 }
 
-exports.getEditAbout = (req, res, next) => {
-  const id = req.params.id
-  res.render('about', {
-    location: `http://localhost:5000/posteditabout/${id}`
-  })
-}
-
+// add api
 exports.getAddPortfolio = (req, res, next) => {
   res.render('portfolio', {
     location: "http://localhost:5000/postaddportfolio"
+  })
+}
+
+exports.getAddEmployee = (req, res, next) => {
+  res.render('employee', {
+    location: "http://localhost:5000/postaddemployee"
+  })
+}
+// get edit
+exports.getEditAbout = (req, res, next) => {
+  const id = req.params.id
+  axios.get(`localhost:5000/api/about/${id}`).then((response)=>{
+    res.render('about', {
+      location: `http://localhost:5000/posteditabout/${id}`,
+      year:response.data.year,
+      title:response.data.title,
+      description:response.data.description,
+      imageURL:response.data.imageURL
+    })
   })
 }
 
@@ -41,12 +54,6 @@ exports.getEditPortfolio = (req, res, next) => {
   const id = req.params.id
   res.render('portfolio', {
     location: `http://localhost:5000/posteditportfolio/${id}`
-  })
-}
-
-exports.getAddEmployee = (req, res, next) => {
-  res.render('employee', {
-    location: "http://localhost:5000/postaddemployee"
   })
 }
 
