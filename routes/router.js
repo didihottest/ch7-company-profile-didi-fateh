@@ -10,7 +10,9 @@ app.use(express.urlencoded({ extended: true }));
 const {getIndex, getAddAbout, getEditAbout, 
        getAddPortfolio, getEditPortfolio, 
        getAddEmployee, getEditEmployee,
-      postEditAbout} = require('./../controller/index');
+      postEditAbout, postEditEmployee, postEditPortfolio,
+      postAddAbout, postAddEmployee, postAddPortfolio,
+      postDeleteAbout, postDeleteEmployee, postDeletePortfolio} = require('./../controller/index');
 const {
   getAbouts, getPortfolios, getEmployees, 
   addAbout, addPortfolio, addEmployee, addContact,
@@ -43,5 +45,13 @@ router.get('/editportfolio/:id', getEditPortfolio)
 router.get('/addemployee', getAddEmployee)
 router.get('/editemployee/:id', getEditEmployee)
 router.post('/posteditabout/:id', postEditAbout)
+router.post('/posteditportfolio/:id', postEditPortfolio)
+router.post('/posteditemployee/:id', postEditEmployee)
+router.post('/postaddabout', postAddAbout)
+router.post('/postaddportfolio', postAddPortfolio)
+router.post('/postaddemployee', postAddEmployee)
+router.post('/postdeleteabout/:id', postDeleteAbout)
+router.post('/postdeleteportfolio/:id', postDeletePortfolio)
+router.post('/postdeleteemployee/:id', postDeleteEmployee)
 
 module.exports = router;

@@ -191,7 +191,7 @@
 						<button class="btn btn-warning mb-1 mt-1">Edit</button>
 					  </a>
             <div class="d-inline-lg">
-              <form action="http://localhost:5000/api/deleteabout/<%= about._id %>" method="POST">
+              <form action="http://localhost:5000/postdeleteabout/<%= about._id %>" method="POST">
               <button class="btn d-inline btn-danger">Delete</button>
             </form>
             </div>
@@ -249,7 +249,7 @@
 						<a href="http://localhost:5000/editemployee/<%= employee._id %> ">
 							<button class="btn btn-warning mb-1">Edit</button>
 						  </a>
-						  <form action="http://localhost:5000/api/deleteemployee/<%= employee._id %>" method="POST">
+						  <form action="http://localhost:5000/postdeleteemployee/<%= employee._id %>" method="POST">
                 <button class="btn d-inline btn-danger">Delete</button>
               </form>
 					</div>
@@ -455,7 +455,7 @@
 							<button class="btn btn-warning mb-1">Edit</button>
 						</a>
             <div class="d-inline">
-              <form action="http://localhost:5000/api/deleteportfolio/<%= portfolio._id %>" method="POST">
+              <form action="http://localhost:5000/postdeleteportfolio/<%= portfolio._id %>" method="POST">
                 <button class="btn d-inline btn-danger">Delete</button>
               </form>
             </div>            
