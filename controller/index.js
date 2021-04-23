@@ -18,41 +18,54 @@ exports.getIndex = (req, res, next) => {
   });
 }
 
-exports.postAddAbout = (req, res, next) => {
+exports.getAddAbout = (req, res, next) => {
   res.render('about', {
     location:"http://localhost:5000/api/addabout"
   })
 }
 
-exports.postEditAbout = (req, res, next) => {
+exports.getEditAbout = (req, res, next) => {
   const id = req.params.id
   res.render('about', {
-    location:`http://localhost:5000/api/editportabout/${id}`
+    location:`http://localhost:5000/posteditabout/${id}`
   })
 }
 
-exports.postAddPortfolio = (req, res, next) => {
+exports.getAddPortfolio = (req, res, next) => {
   res.render('portfolio', {
     location:"http://localhost:5000/api/addportfolio"
   })
 }
 
-exports.postEditPortfolio = (req, res, next) => {
+exports.getEditPortfolio = (req, res, next) => {
   const id = req.params.id
   res.render('portfolio', {
     location:`http://localhost:5000/api/editportfolio/${id}`
   })
 }
 
-exports.postAddEmployee = (req, res, next) => {
+exports.getAddEmployee = (req, res, next) => {
   res.render('employee', {
     location:"http://localhost:5000/api/addemployee"
   })
 }
 
-exports.postEditEmployee = (req, res, next) => {
+exports.getEditEmployee = (req, res, next) => {
   const id = req.params.id
   res.render('employee', {
     location:`http://localhost:5000/api/editemployee/${id}`
+  })
+}
+
+exports.postEditAbout = (req, res, next) => {
+  const id = req.params.id
+  const {year, title, description, imageURL} = req.body
+  axios.post(`http://localhost:5000/api/editabout/${id}`, {
+    year:year,
+    title:title,
+    description:description,
+    imageURL:imageURL
+  }).then((response)=>{
+    res.redirect('/')
   })
 }

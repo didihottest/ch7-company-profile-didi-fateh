@@ -7,9 +7,10 @@ const router = express.Router();
 app.use(express.json());
 // Get request form form-urlencoded form postman / api
 app.use(express.urlencoded({ extended: true }));
-const {getIndex, postAddAbout, postEditAbout, 
-       postAddPortfolio, postEditPortfolio, 
-       postAddEmployee, postEditEmployee} = require('./../controller/index');
+const {getIndex, getAddAbout, getEditAbout, 
+       getAddPortfolio, getEditPortfolio, 
+       getAddEmployee, getEditEmployee,
+      postEditAbout} = require('./../controller/index');
 const {
   getAbouts, getPortfolios, getEmployees, 
   addAbout, addPortfolio, addEmployee, addContact,
@@ -35,11 +36,12 @@ router.post('/api/deleteportfolio/:id', deletePortfolio);
 router.post('/api/deleteemployee/:id', deleteEmployee);
 
 router.get("/", getIndex);
-router.get('/addabout', postAddAbout)
-router.get('/editabout/:id', postEditAbout)
-router.get('/addportfolio', postAddPortfolio)
-router.get('/editportfolio/:id', postEditPortfolio)
-router.get('/addemployee', postAddEmployee)
-router.get('/editemployee/:id', postEditEmployee)
+router.get('/addabout', getAddAbout)
+router.get('/editabout/:id', getEditAbout)
+router.get('/addportfolio', getAddPortfolio)
+router.get('/editportfolio/:id', getEditPortfolio)
+router.get('/addemployee', getAddEmployee)
+router.get('/editemployee/:id', getEditEmployee)
+router.post('/posteditabout/:id', postEditAbout)
 
 module.exports = router;
