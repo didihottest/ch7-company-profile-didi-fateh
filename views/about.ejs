@@ -1,0 +1,29 @@
+<%- include("partials/header") %>
+<%- include("partials/navbar") %> 
+<div class="container">
+  <form action=<%= location %> method="POST">
+    <div class="form-group">
+      <label for="price">Year</label>
+      <input id="price" class="form-control" type="text" name="year" required/>
+    </div>
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input id="title" class="form-control" type="text" name="title" required/>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        class="form-control"
+        name="description"
+        required
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">Image URL</label>
+      <input id="imageUrl" class="form-control" type="text" name="imageURL" required/>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+<%- include("partials/footer") %>

@@ -12,7 +12,7 @@ const About_Data = [
     year: "2009-2011",
     title: "Our Humble Beginnings",
     description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!",
-    imageURL: "assests/img/about/1.img"
+    imageURL: "assets/img/about/1.jpg"
   },
   {
     year: "March 2011",

@@ -7,7 +7,9 @@ const router = express.Router();
 app.use(express.json());
 // Get request form form-urlencoded form postman / api
 app.use(express.urlencoded({ extended: true }));
-const {getIndex} = require('./../controller/index');
+const {getIndex, postAddAbout, postEditAbout, 
+       postAddPortfolio, postEditPortfolio, 
+       postAddEmployee, postEditEmployee} = require('./../controller/index');
 const {
   getAbouts, getPortfolios, getEmployees, 
   addAbout, addPortfolio, addEmployee, addContact,
@@ -33,6 +35,11 @@ router.post('/api/deleteportfolio/:id', deletePortfolio);
 router.post('/api/deleteemployee/:id', deleteEmployee);
 
 router.get("/", getIndex);
-
+router.get('/addabout', postAddAbout)
+router.get('/editabout/:id', postEditAbout)
+router.get('/addportfolio', postAddPortfolio)
+router.get('/editportfolio/:id', postEditPortfolio)
+router.get('/addemployee', postAddEmployee)
+router.get('/editemployee/:id', postEditEmployee)
 
 module.exports = router;
