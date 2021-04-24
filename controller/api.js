@@ -29,6 +29,31 @@ exports.getEmployees = (req, res, next) => {
   })
 }
 
+// display one entry
+// display all about entry from database
+exports.getAbout = (req, res, next) => {
+  const id = req.params.id
+  About.find({_id:id}).exec((err, about) => {
+    res.json(about)
+  })
+}
+
+// display all portfolio entry from database
+exports.getPortfolio = (req, res, next) => {
+  const id = req.params.id
+  Portfolio.find({_id:id}).exec((err, portfolios) => {
+    res.json(portfolios)
+  })
+}
+
+// display all employees entry from database
+exports.getEmployee = (req, res, next) => {
+  const id = req.params.id
+  Employee.find({_id:id}).exec((err, employees) => {
+    res.json(employees)
+  })
+}
+
 //all endpoint for add new data to collections
 // add new contact message entry
 exports.addContact = (req, res, next) => {

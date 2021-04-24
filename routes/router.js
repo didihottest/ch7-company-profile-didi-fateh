@@ -14,7 +14,8 @@ const {getIndex, getAddAbout, getEditAbout,
       postAddAbout, postAddEmployee, postAddPortfolio,
       postDeleteAbout, postDeleteEmployee, postDeletePortfolio} = require('./../controller/index');
 const {
-  getAbouts, getPortfolios, getEmployees, 
+  getAbouts, getPortfolios, getEmployees,
+  getAbout, getPortfolio, getEmployee,
   addAbout, addPortfolio, addEmployee, addContact,
   editAbout, editPortfolio, editEmployee,
   deleteAbout, deletePortfolio, deleteEmployee} = require('./../controller/api');
@@ -23,6 +24,9 @@ const {
 router.get('/api/abouts', getAbouts);
 router.get('/api/portfolios', getPortfolios);
 router.get('/api/employees', getEmployees);
+router.get('/api/about/:id', getAbout);
+router.get('/api/portfolio/:id', getPortfolio);
+router.get('/api/employee/:id', getEmployee);
 // api post new data
 router.post('/api/addabout', multer().none(), addAbout);
 router.post('/api/addportfolio', multer().none(), addPortfolio);

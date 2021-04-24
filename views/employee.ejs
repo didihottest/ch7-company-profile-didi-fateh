@@ -4,27 +4,27 @@
   <form action=<%= location %> method="POST">
     <div class="form-group">
       <label for="fullname">Full Name</label>
-      <input id="fullname" class="form-control" type="text" name="fullname" required/>
+      <input id="fullname" class="form-control" type="text" name="fullname" value="<% if (editmode) { %><%= fullname %><% } %>" required/>
     </div>
     <div class="form-group">
       <label for="position">Position</label>
-      <input id="position" class="form-control" type="text" name="position" required/>
+      <input id="position" class="form-control" type="text" name="position" value="<% if (editmode) { %><%= position %><% } %>" required/>
     </div>
     <div class="form-group">
       <label for="imageUrl">Image URL</label>
-      <input id="imageUrl" class="form-control" type="text" name="imageURL" required/>
+      <input id="imageUrl" class="form-control" type="text" name="imageURL" value="<% if (editmode) { %><%= imageURL %><% } %>" required/>
     </div>
     <div class="form-group">
       <label for="twitterURL">Twitter Link</label>
-      <input id="twitterURL" class="form-control" type="text" name="twitterURL" required/>
+      <input id="twitterURL" class="form-control" type="text" name="twitterURL" value="<% if (editmode) { %><%= twitterURL %><% } %>" required/>
     </div>
     <div class="form-group">
       <label for="facebookURL">Facebook Link</label>
-      <input id="facebookURL" class="form-control" type="text" name="facebookURL" required/>
+      <input id="facebookURL" class="form-control" type="text" name="facebookURL" value="<% if (editmode) { %><%= facebookURL %><% } %>" required/>
     </div>
     <div class="form-group">
       <label for="linkedinURL">Linkedin Link</label>
-      <input id="linkedinURL" class="form-control" type="text" name="linkedinURL" required/>
+      <input id="linkedinURL" class="form-control" type="text" name="linkedinURL" value="<% if (editmode) { %><%= linkedinURL %><% } %>" required/>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
