@@ -1,0 +1,36 @@
+<%- include('../partials/header.ejs') %>
+<div class="container">
+  <% if(errorMessage) { %> <%- include('../partials/message.ejs') %> <% } %>
+
+  <h1 class="text-center mt-4 mb-4">Sign Up</h1>
+  <form action="" method="POST">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input id="email" class="form-control" type="text" name="email" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        class="form-control"
+        type="password"
+        name="password"
+      />
+    </div>
+    <div class="form-group">
+      <label for="confirmPassword">Confirm Password</label>
+      <input
+        id="confirmPassword"
+        class="form-control"
+        type="password"
+        name="confirmPassword"
+      />
+    </div>
+
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+  </form>
+  <a href="/signup"><button class="btn btn-primary mt-1">or Login to Existing Account</button></a>
+
+</div>
+<%- include('../partials/footer.ejs') %>
