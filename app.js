@@ -46,7 +46,7 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 })
 
-// csrf token generator
+// csrf token generator and user identification
 const csrfGenerator = (req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
