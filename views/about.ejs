@@ -23,6 +23,7 @@
       <label for="imageUrl">Image URL</label>
       <input id="imageUrl" class="form-control" type="text" name="imageURL" value="<% if (editmode) { %><%= imageURL %><% } %>" required/>
     </div>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

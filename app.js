@@ -1,31 +1,32 @@
 const express = require('express');
 const app = express();
+// Cross-Origin Resource Sharing module 
+const cors = require('cors');
 const session = require('express-session');
-const MongoDBStore = require('connect-mongodb-session')(session);
+const cookieParser = require('cookie-parser')
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const User = require('./model/user');
-
-const store = new MongoDBStore({
-  uri: 'mongodb://localhost:27017/company',
-  collection: 'sessions'
-})
+const dbstore = require('./model/session-store')
 const csrfProtection = csrf();
 
 // use router as a middleware
 const routers = require('./routes/router')
+const apiroutes = require('./routes/apiroutes')
 // use express static middleware
 app.use(express.static('public'));
 // Get request raw json from postman / api
 app.use(express.json());
 // use express bodyparser to pass data from body
 app.use(express.urlencoded({ extended: true }));
+app.use(cors())
 app.use(session({
   secret: 'secret',
   resave: false,
   saveUninitialized: false,
-  store: store
+  store: dbstore
 }))
+app.use(apiroutes)
 app.use(csrfProtection);
 app.use(flash());
 
@@ -45,13 +46,14 @@ app.use((req, res, next) => {
     .catch(err => console.log(err));
 })
 
-app.use((req, res, next) => {
+// csrf token generator
+const csrfGenerator = (req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
   res.locals.csrfToken = req.csrfToken();
   next();
-})
+}
 
-app.use(routers)
+app.use(csrfGenerator, routers)
 // use connection module to connect to database from route
 app.listen(5000, () => {
   console.log("Server is running at port 5000")

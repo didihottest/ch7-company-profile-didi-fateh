@@ -26,6 +26,7 @@
       <label for="linkedinURL">Linkedin Link</label>
       <input id="linkedinURL" class="form-control" type="text" name="linkedinURL" value="<% if (editmode) { %><%= linkedinURL %><% } %>" required/>
     </div>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

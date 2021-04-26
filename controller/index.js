@@ -74,7 +74,6 @@ exports.getEditPortfolio = (req, res, next) => {
 
 exports.getEditEmployee = (req, res, next) => {
   const id = req.params.id
-  // console.log(id)
   axios.get(`http://localhost:5000/api/employee/${id}`).then((response)=>{
     res.render('employee', {
       location: `http://localhost:5000/posteditemployee/${id}`,
@@ -86,7 +85,6 @@ exports.getEditEmployee = (req, res, next) => {
       facebookURL: response.data[0].facebookURL,
       linkedinURL: response.data[0].linkedinURL,
     })
-    // console.log(response)
   }).catch((error) => {
     if (error) console.log(error.message)
   })
@@ -103,7 +101,6 @@ exports.postEditAbout = (req, res, next) => {
     description: description,
     imageURL: imageURL
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#about')
   })
 }
@@ -118,7 +115,6 @@ exports.postEditEmployee = (req, res, next) => {
     facebookURL: facebookURL,
     linkedinURL: linkedinURL,
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#team')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -132,7 +128,6 @@ exports.postEditPortfolio = (req, res, next) => {
     description: description,
     imageURL: imageURL
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#portfolio')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -140,14 +135,18 @@ exports.postEditPortfolio = (req, res, next) => {
 }
 // add post
 exports.postAddAbout = (req, res, next) => {
-  const { year, title, description, imageURL } = req.body
+  const { year, title, description, imageURL} = req.body
   axios.post(`http://localhost:5000/api/addabout`, {
     year: year,
     title: title,
     description: description,
     imageURL: imageURL
+  }, {
+    headers: {
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-CSRFToken': req.csrfToken(),
+   }
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#about')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -163,7 +162,6 @@ exports.postAddEmployee = (req, res, next) => {
     facebookURL: facebookURL,
     linkedinURL: linkedinURL,
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#team')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -176,7 +174,6 @@ exports.postAddPortfolio = (req, res, next) => {
     description: description,
     imageURL: imageURL
   }).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#portfolio')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -188,7 +185,6 @@ exports.postAddPortfolio = (req, res, next) => {
 exports.postDeleteAbout = (req, res, next) => {
   const id = req.params.id
   axios.post(`http://localhost:5000/api/deleteabout/${id}`).then((response) => {
-    console.log(response.data.message)
     res.redirect('/#about')
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -198,7 +194,6 @@ exports.postDeleteEmployee = (req, res, next) => {
   const id = req.params.id
   axios.post(`http://localhost:5000/api/deleteemployee/${id}`)
     .then((response) => {
-      console.log(response.data.message)
       res.redirect('/#team')
     }).catch((error) => {
       if (error) console.log(error.message)
@@ -208,7 +203,6 @@ exports.postDeletePortfolio = (req, res, next) => {
   const id = req.params.id
   axios.post(`http://localhost:5000/api/deleteportfolio/${id}`)
     .then((response) => {
-      console.log(response.data.message)
       res.redirect('/#portfolio')
     }).catch((error) => {
       if (error) console.log(error.message)
