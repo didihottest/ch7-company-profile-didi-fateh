@@ -24,7 +24,9 @@ exports.getIndex = (req, res, next) => {
 exports.getAddAbout = (req, res, next) => {
   res.render('about', {
     location: "http://localhost:5000/postaddabout",
-    editmode: false
+    editmode: false,
+    errorMessage: null,
+    validationErrors: []
   })
 }
 
@@ -32,14 +34,18 @@ exports.getAddAbout = (req, res, next) => {
 exports.getAddPortfolio = (req, res, next) => {
   res.render('portfolio', {
     location: "http://localhost:5000/postaddportfolio",
-    editmode: false
+    editmode: false,
+    errorMessage: null,
+    validationErrors: []
   })
 }
 
 exports.getAddEmployee = (req, res, next) => {
   res.render('employee', {
     location: "http://localhost:5000/postaddemployee",
-    editmode: false
+    editmode: false,
+    errorMessage: null,
+    validationErrors: []
   })
 }
 // get edit
@@ -55,7 +61,7 @@ exports.getEditAbout = (req, res, next) => {
       imageURL: response.data[0].imageURL,
       errorMessage: null,
       validationErrors: []
-      
+
     })
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -70,7 +76,9 @@ exports.getEditPortfolio = (req, res, next) => {
       editmode: true,
       title: response.data[0].title,
       description: response.data[0].description,
-      imageURL: response.data[0].imageURL
+      imageURL: response.data[0].imageURL,
+      errorMessage: null,
+      validationErrors: []
     })
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -90,6 +98,8 @@ exports.getEditEmployee = (req, res, next) => {
       twitterURL: response.data[0].twitterURL,
       facebookURL: response.data[0].facebookURL,
       linkedinURL: response.data[0].linkedinURL,
+      errorMessage: null,
+      validationErrors: []
     })
   }).catch((error) => {
     if (error) console.log(error.message)
@@ -133,65 +143,124 @@ exports.postEditAbout = (req, res, next) => {
 exports.postEditEmployee = (req, res, next) => {
   const id = req.params.id
   const { fullname, position, imageURL, twitterURL, facebookURL, linkedinURL } = req.body;
-  axios.post(`http://localhost:5000/api/editemployee/${id}`, {
-    fullname: fullname,
-    position: position,
-    imageURL: imageURL,
-    twitterURL: twitterURL,
-    facebookURL: facebookURL,
-    linkedinURL: linkedinURL,
-  }).then((response) => {
-    res.redirect('/#team')
-  }).catch((error) => {
-    if (error) console.log(error.message)
-  })
+  const errors = validationResult(req);
+  console.log(!errors.isEmpty())
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    return axios.get(`http://localhost:5000/api/employee/${id}`).then((response) => {
+      res.render('employee', {
+        location: `http://localhost:5000/posteditemployee/${id}`,
+        editmode: true,
+        fullname: response.data[0].fullname,
+        position: response.data[0].position,
+        imageURL: response.data[0].imageURL,
+        twitterURL: response.data[0].twitterURL,
+        facebookURL: response.data[0].facebookURL,
+        linkedinURL: response.data[0].linkedinURL,
+        errorMessage: errors.array()[0].msg,
+        validationErrors: errors.array()
+      })
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  } else {
+    axios.post(`http://localhost:5000/api/editemployee/${id}`, {
+      fullname: fullname,
+      position: position,
+      imageURL: imageURL,
+      twitterURL: twitterURL,
+      facebookURL: facebookURL,
+      linkedinURL: linkedinURL,
+    }).then((response) => {
+      res.redirect('/#team')
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  }
 }
 exports.postEditPortfolio = (req, res, next) => {
   const id = req.params.id
   const { title, description, imageURL } = req.body;
-  axios.post(`http://localhost:5000/api/editportfolio/${id}`, {
-    title: title,
-    description: description,
-    imageURL: imageURL
-  }).then((response) => {
-    res.redirect('/#portfolio')
-  }).catch((error) => {
-    if (error) console.log(error.message)
-  })
+  const errors = validationResult(req);
+  console.log(!errors.isEmpty())
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    return axios.get(`http://localhost:5000/api/portfolio/${id}`).then((response) => {
+      res.render('portfolio', {
+        location: `http://localhost:5000/posteditportfolio/${id}`,
+        editmode: true,
+        year: response.data[0].year,
+        title: response.data[0].title,
+        description: response.data[0].description,
+        imageURL: response.data[0].imageURL,
+        errorMessage: errors.array()[0].msg,
+        validationErrors: errors.array()
+      })
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  } else {
+    axios.post(`http://localhost:5000/api/editportfolio/${id}`, {
+      title: title,
+      description: description,
+      imageURL: imageURL
+    }).then((response) => {
+      res.redirect('/#portfolio')
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  }
 }
 // add post
 exports.postAddAbout = (req, res, next) => {
   const { year, title, description, imageURL } = req.body
-  axios.post(`http://localhost:5000/api/addabout`, {
-    year: year,
-    title: title,
-    description: description,
-    imageURL: imageURL
-  }, {
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRFToken': req.csrfToken(),
-    }
-  }).then((response) => {
-    res.redirect('/#about')
-  }).catch((error) => {
-    if (error) console.log(error.message)
-  })
+  const errors = validationResult(req);
+  console.log(!errors.isEmpty())
+  if (!errors.isEmpty()) {
+    res.render('about', {
+      location: `http://localhost:5000/postaddabout`,
+      editmode: false,
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    })
+  } else {
+    axios.post(`http://localhost:5000/api/addabout`, {
+      year: year,
+      title: title,
+      description: description,
+      imageURL: imageURL
+    }).then((response) => {
+      res.redirect('/#about')
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  }
 }
 exports.postAddEmployee = (req, res, next) => {
   const { fullname, position, imageURL, twitterURL, facebookURL, linkedinURL } = req.body;
-  axios.post(`http://localhost:5000/api/addemployee`, {
-    fullname: fullname,
-    position: position,
-    imageURL: imageURL,
-    twitterURL: twitterURL,
-    facebookURL: facebookURL,
-    linkedinURL: linkedinURL,
-  }).then((response) => {
-    res.redirect('/#team')
-  }).catch((error) => {
-    if (error) console.log(error.message)
-  })
+  const errors = validationResult(req);
+  console.log(!errors.isEmpty())
+  if (!errors.isEmpty()) {
+    res.render('employee', {
+      location: `http://localhost:5000/postaddemployee`,
+      editmode: false,
+      errorMessage: errors.array()[0].msg,
+      validationErrors: errors.array()
+    })
+  } else {
+    axios.post(`http://localhost:5000/api/addemployee`, {
+      fullname: fullname,
+      position: position,
+      imageURL: imageURL,
+      twitterURL: twitterURL,
+      facebookURL: facebookURL,
+      linkedinURL: linkedinURL,
+    }).then((response) => {
+      res.redirect('/#team')
+    }).catch((error) => {
+      if (error) console.log(error.message)
+    })
+  }
 }
 exports.postAddPortfolio = (req, res, next) => {
   const { title, description, imageURL } = req.body;

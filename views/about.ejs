@@ -1,9 +1,10 @@
 <%- include("partials/header") %>
 <%- include("partials/navbar") %>
-<% if(errorMessage) { %>
-  <%- include('partials/message.ejs') %>
-<% } %> 
+
 <div class="container">
+  <% if(errorMessage) { %>
+    <%- include('partials/message.ejs') %>
+  <% } %> 
   <form action=<%= location %> method="POST">
     <div class="form-group">
       <label for="price">Year</label>
@@ -37,7 +38,7 @@
       <label for="imageUrl">Image URL</label>
       <input 
       id="imageUrl" 
-      class="form-control <%= validationErrors.find(e => e.param === 'imageURL') ? 'is-invalid' : '' %>"" 
+      class="form-control <%= validationErrors.find(e => e.param === 'imageURL') ? 'is-invalid' : '' %>" 
       type="text" 
       name="imageURL" 
       value="<% if (editmode) { %><%= imageURL %><% } %>" 

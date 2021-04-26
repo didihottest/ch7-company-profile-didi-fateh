@@ -1,30 +1,69 @@
 <%- include("partials/header") %>
 <%- include("partials/navbar") %> 
 <div class="container">
+  <% if(errorMessage) { %>
+    <%- include('partials/message.ejs') %>
+  <% } %> 
   <form action=<%= location %> method="POST">
     <div class="form-group">
       <label for="fullname">Full Name</label>
-      <input id="fullname" class="form-control" type="text" name="fullname" value="<% if (editmode) { %><%= fullname %><% } %>" required/>
+      <input 
+        id="fullname" 
+        class="form-control <%= validationErrors.find(e => e.param === 'fullname') ? 'is-invalid' : '' %>" 
+        type="text" 
+        name="fullname" 
+        value="<% if (editmode) { %><%= fullname %><% } %>" 
+        required/>
     </div>
     <div class="form-group">
       <label for="position">Position</label>
-      <input id="position" class="form-control" type="text" name="position" value="<% if (editmode) { %><%= position %><% } %>" required/>
+      <input 
+        id="position" 
+        class="form-control <%= validationErrors.find(e => e.param === 'position') ? 'is-invalid' : '' %>" 
+        type="text" 
+        name="position" 
+        value="<% if (editmode) { %><%= position %><% } %>" 
+        required/>
     </div>
     <div class="form-group">
       <label for="imageUrl">Image URL</label>
-      <input id="imageUrl" class="form-control" type="text" name="imageURL" value="<% if (editmode) { %><%= imageURL %><% } %>" required/>
+      <input 
+        id="imageUrl" 
+        class="form-control <%= validationErrors.find(e => e.param === 'imageURL') ? 'is-invalid' : '' %>" 
+        type="text" 
+        name="imageURL" 
+        value="<% if (editmode) { %><%= imageURL %><% } %>" 
+        required/>
     </div>
     <div class="form-group">
       <label for="twitterURL">Twitter Link</label>
-      <input id="twitterURL" class="form-control" type="text" name="twitterURL" value="<% if (editmode) { %><%= twitterURL %><% } %>" required/>
+      <input 
+        id="twitterURL" 
+        class="form-control <%= validationErrors.find(e => e.param === 'twitterURL') ? 'is-invalid' : '' %>" 
+        type="text" 
+        name="twitterURL" 
+        value="<% if (editmode) { %><%= twitterURL %><% } %>" 
+        required/>
     </div>
     <div class="form-group">
       <label for="facebookURL">Facebook Link</label>
-      <input id="facebookURL" class="form-control" type="text" name="facebookURL" value="<% if (editmode) { %><%= facebookURL %><% } %>" required/>
+      <input 
+        id="facebookURL" 
+        class="form-control <%= validationErrors.find(e => e.param === 'facebookURL') ? 'is-invalid' : '' %>"" 
+        type="text" 
+        name="facebookURL" 
+        value="<% if (editmode) { %><%= facebookURL %><% } %>" 
+        required/>
     </div>
     <div class="form-group">
       <label for="linkedinURL">Linkedin Link</label>
-      <input id="linkedinURL" class="form-control" type="text" name="linkedinURL" value="<% if (editmode) { %><%= linkedinURL %><% } %>" required/>
+      <input 
+        id="linkedinURL" 
+        class="form-control <%= validationErrors.find(e => e.param === 'linkedinURL') ? 'is-invalid' : '' %>"" 
+        type="text" 
+        name="linkedinURL" 
+        value="<% if (editmode) { %><%= linkedinURL %><% } %>" 
+        required/>
     </div>
     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
     <button type="submit" class="btn btn-primary">Submit</button>
