@@ -6,14 +6,22 @@ const { validationResult } = require('express-validator');
 
 
 exports.getIndex = (req, res, next) => {
+  portfolioPage = +req.query.portfoliopage || 1
   axios.all([
     axios.get('http://localhost:5000/api/abouts'),
-    axios.get('http://localhost:5000/api/portfolios'),
+    axios.get(`http://localhost:5000/api/portfolios?portfoliopage=${portfolioPage}`),
     axios.get('http://localhost:5000/api/employees'),
   ]).then(axios.spread((abouts, portfolios, employees) => {
     res.render('index', {
+      // abouts data
       abouts: abouts.data,
-      portfolios: portfolios.data,
+      // portfolios data
+      portfolios: portfolios.data.data,
+      portfoliosCurrentPage: portfolios.data.currentPage,
+      portfoliosNextPage: portfolios.data.nextPage,
+      portfoliosPreviousPage: portfolios.data.previousPage,
+      portfoliosLastPage: portfolios.data.lastPage,
+      // employees data
       employees: employees.data
     })
   })).catch(error => {

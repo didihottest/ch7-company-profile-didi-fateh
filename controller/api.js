@@ -7,6 +7,8 @@ app.use(express.json());
 // Get request form form-urlencoded form postman / api
 app.use(express.urlencoded({ extended: true }));
 
+const itemPerPage = 3;
+
 // display API for all collections
 // display all about entry from database
 exports.getAbouts = (req, res, next) => {
@@ -16,11 +18,31 @@ exports.getAbouts = (req, res, next) => {
 }
 
 // display all portfolio entry from database
+// exports.getPortfolios = (req, res, next) => {
+//   Portfolio.find().exec((err, portfolios) => {
+//     res.json(portfolios)
+//   })
+// }
+
+// display portfolio paginated data 
 exports.getPortfolios = (req, res, next) => {
-  Portfolio.find().exec((err, portfolios) => {
-    res.json(portfolios)
-  })
+  const page = +req.query.portfoliopage || 1
+  let portfoliocount;
+  Portfolio.find().countDocuments()
+    .then(countedPortfolio => {
+      portfoliocount = countedPortfolio;
+      return Portfolio.find().skip((page - 1) * itemPerPage).limit(itemPerPage)
+    }).then(paginatedPortfolio => {
+      res.json({
+        data: paginatedPortfolio,
+        currentPage: page,
+        nextPage: page + 1,
+        previousPage: page - 1,
+        lastPage: Math.ceil(portfoliocount / itemPerPage)
+      })
+    })
 }
+
 
 // display all employees entry from database
 exports.getEmployees = (req, res, next) => {
