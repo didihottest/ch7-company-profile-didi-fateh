@@ -1,7 +1,7 @@
 // use express module
 const express = require('express');
 const app = express();
-const { About, Portfolio, Employee, Contact} = require('./../model/api')
+const { About, Portfolio, Employee, Contact } = require('./../model/api')
 // Get request raw json from postman / api
 app.use(express.json());
 // Get request form form-urlencoded form postman / api
@@ -33,7 +33,7 @@ exports.getEmployees = (req, res, next) => {
 // display all about entry from database
 exports.getAbout = (req, res, next) => {
   const id = req.params.id
-  About.find({_id:id}).exec((err, about) => {
+  About.find({ _id: id }).exec((err, about) => {
     res.json(about)
   })
 }
@@ -41,7 +41,7 @@ exports.getAbout = (req, res, next) => {
 // display all portfolio entry from database
 exports.getPortfolio = (req, res, next) => {
   const id = req.params.id
-  Portfolio.find({_id:id}).exec((err, portfolios) => {
+  Portfolio.find({ _id: id }).exec((err, portfolios) => {
     res.json(portfolios)
   })
 }
@@ -49,7 +49,7 @@ exports.getPortfolio = (req, res, next) => {
 // display all employees entry from database
 exports.getEmployee = (req, res, next) => {
   const id = req.params.id
-  Employee.find({_id:id}).exec((err, employees) => {
+  Employee.find({ _id: id }).exec((err, employees) => {
     res.json(employees)
   })
 }
@@ -63,7 +63,7 @@ exports.addContact = (req, res, next) => {
       name: name,
       email: email,
       phone: phone,
-      message: message 
+      message: message
     })
     newContact.save((err) => {
       if (err) {
