@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   User.findById(req.session.user._id)
     .then(user => {
       req.user = user;
+      res.locals.userSignin = user.email
       next();
     })
     .catch(err => console.log(err));
